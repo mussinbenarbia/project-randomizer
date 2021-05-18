@@ -1,12 +1,17 @@
 from flask import Flask
 from flask import jsonify
 from flask_pymongo import PyMongo
+from flask_cors import CORS;
 import os
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-print("This is the MONGO_URI " + os.environ.get("MONGO_URI"))
-
+CORS(app)
+cors = CORS(app, resource={
+    r"/*":{
+        "origins":"*"
+    }
+})
 mongo = PyMongo(app)
 
 @app.route("/")
@@ -19,7 +24,6 @@ def get_technologies():
     output = []
     for tech in technologies.find():
         output.append({'name' : tech['name'], 'category' : tech['cat']})
-    print(output)
     return jsonify(output)
 
 @app.route("/api/projects")
