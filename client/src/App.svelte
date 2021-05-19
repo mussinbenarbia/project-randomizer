@@ -1,7 +1,10 @@
 <script>
 	import axios from "axios";
 	import Technology from "./components/Technology.svelte"
+	import Navbar from "./components/Navbar.svelte"
+	import Footer from "./components/Footer.svelte"
 
+	let allProjects = [];
 	let projectData = {
 		name: "",
 		stack: [],
@@ -10,42 +13,59 @@
 	
 	const fetchProject = (async () => {
 		const {data: project} = await axios.get("http://localhost:5000/api/projects")
-		const randProject = project[Math.round(Math.random() * project.length)];
-		return projectData = randProject
+		allProjects = project;
+		selectProject()
 	})
+
+	const selectProject = () => {
+		projectData = allProjects[Math.round(Math.random() * (allProjects.length -1))]
+	}
 
 	fetchProject()
 	
 </script>
 
 <main>
-	<h1>Your next project is...</h1>
+	<Navbar/>
+	<section>
+		<h1>Your next project is...</h1>
 	
-	<h2>{projectData.name}</h2>
+		<h2>{projectData.name}</h2>
+		
+		<div class="stack">
+			{#each projectData.stack as tech}
+			<Technology techName={tech}/>
+			{/each}
+		</div>
+		<button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" on:click={selectProject}>Randomize</button>
+	</section>
 	
-	<div class="stack">
-		{#each projectData.stack as tech}
-		<Technology techName={tech}/>
-		{/each}
-	</div>
-	<button on:click={fetchProject}>Randomize</button>
+	<Footer/>
 </main>
 
 <style>
 
 
 	main {
+		height: 100vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 1em;
+		justify-content: space-between;
+		
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.stack {
 		display: flex;
 		justify-content: space-evenly;
 		width: 500px;
-		margin: 2rem;
+		margin: 1rem;
 	}
 
 	h1 {
@@ -54,6 +74,12 @@
 		font-size: 4em;
 		font-weight: 100;
 	}
+	h2 {
+		text-transform: uppercase;
+		font-size: 2em;
+		font-weight: 300;
+	}
+	
 
 	@media (min-width: 640px) {
 		main {
