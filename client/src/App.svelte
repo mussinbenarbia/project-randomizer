@@ -1,8 +1,8 @@
 <script>
 	import axios from "axios";
-	import Technology from "./components/Technology.svelte"
-	import Navbar from "./components/Navbar.svelte"
-	import Footer from "./components/Footer.svelte"
+	import Technology from "./components/Technology.svelte";
+	import Navbar from "./components/Navbar.svelte";
+	import Footer from "./components/Footer.svelte";
 
 	let allProjects = [];
 	let projectData = {
@@ -10,18 +10,29 @@
 		stack: [],
 		cat: ""
 	}
+
+	const fetchAllImages = async () => {
+		const {data: techs} = await axios.get("/api/technologies");
+		techs.forEach(async tech => {
+			await axios.get(`/images/${tech.name}.svg`);
+		});
+	}
 	
-	const fetchProject = async () => {
-		const {data: project} = await axios.get("/api/projects")
-		allProjects = project;
-		selectProject()
+	const fetchAllProjects = async () => {
+		allProjects = (await axios.get("/api/projects")).data;	
 	}
 
 	const selectProject = () => {
-		projectData = allProjects[Math.floor(Math.random() * (allProjects.length -1))]
+		projectData = allProjects[Math.floor(Math.random() * (allProjects.length -1))];
 	}
 
-	fetchProject()
+	const initializePage = async () => {
+		await fetchAllProjects();
+		selectProject();
+	 	fetchAllImages();
+	}
+	
+	initializePage();
 	
 </script>
 
@@ -37,7 +48,7 @@
 			<Technology techName={tech}/>
 			{/each}
 		</div>
-		<button class="hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" on:click={selectProject}>Randomize</button>
+		<button class="border-red-500 rounded text-red-700 font-semibold py-2 px-4 hover:bg-red-500 hover:text-white hover:border-transparent focus:border-red-500 focus:outline-none" on:click={selectProject}>Randomize</button>
 	</section>
 	
 	<Footer/>
