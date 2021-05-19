@@ -1,10 +1,9 @@
-from flask import Flask
-from flask import jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_pymongo import PyMongo
 from flask_cors import CORS;
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="client/public", static_url_path="")
 
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 
@@ -18,7 +17,7 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    return "<h1>Hello World!</h1>"
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route("/api/technologies")
 def get_technologies():
