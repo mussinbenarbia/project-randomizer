@@ -1,2 +1,6 @@
 .env
 .flaskenv
+/client/node_modules/
+/client/public/build/
+__pycache__
+.DS_Store
