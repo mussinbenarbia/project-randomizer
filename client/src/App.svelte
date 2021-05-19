@@ -11,14 +11,14 @@
 		cat: ""
 	}
 	
-	const fetchProject = (async () => {
-		const {data: project} = await axios.get("http://localhost:5000/api/projects")
+	const fetchProject = async () => {
+		const {data: project} = await axios.get("/api/projects")
 		allProjects = project;
 		selectProject()
-	})
+	}
 
 	const selectProject = () => {
-		projectData = allProjects[Math.round(Math.random() * (allProjects.length -1))]
+		projectData = allProjects[Math.floor(Math.random() * (allProjects.length -1))]
 	}
 
 	fetchProject()
@@ -37,7 +37,7 @@
 			<Technology techName={tech}/>
 			{/each}
 		</div>
-		<button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" on:click={selectProject}>Randomize</button>
+		<button class="hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" on:click={selectProject}>Randomize</button>
 	</section>
 	
 	<Footer/>
