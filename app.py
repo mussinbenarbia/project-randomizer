@@ -5,7 +5,9 @@ from flask_cors import CORS;
 import os
 
 app = Flask(__name__)
+
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+
 CORS(app)
 cors = CORS(app, resource={
     r"/*":{
@@ -33,8 +35,7 @@ def get_projects():
     for project in projects.find():
         output.append({'name' : project['name'], 'stack' : project['stack'], 'cat' : project['cat']})
     return jsonify(output)
-
-
+    
 # @app.route("/add_projects")
 # def add_projects():
 #     mongo.db.projects.insert_many([

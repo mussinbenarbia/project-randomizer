@@ -9,6 +9,7 @@ flask-pymongo = "*"
 python-dotenv = "*"
 dnspython = "*"
 flask-cors = "*"
+gunicorn = "*"
 
 [scripts]
 start = "flask run"
