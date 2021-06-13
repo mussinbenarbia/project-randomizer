@@ -25,8 +25,7 @@
   <!-- <a href="https://github.com/mussinbenarbia/project-randomizer">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
-
-  <h3 align="center">Project Randomizer</h3>
+  <img src="https://i.imgur.com/afebpzF.png">
 
   <p align="center">
     A simple app that will suggest a project to build and the stack to use. 
