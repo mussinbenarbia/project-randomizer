@@ -7,11 +7,15 @@
       <span class="text-2xl no-underline text-grey-darkest hover:text-blue-dark">Project Randomizer</span>
     </div>
     <div>
-      <span class="text-lg cursor-pointer no-underline text-grey-darkest hover:text-blue-dark ml-2">About</span>
+      <a target="_blank" href="https://github.com/mussinbenarbia/project-randomizer" class="text-lg cursor-pointer no-underline text-grey-darkest hover:text-blue-dark ml-2">About</a>
     </div>
   </nav>
 
 
 <style>
+  a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ }
 
 </style>
