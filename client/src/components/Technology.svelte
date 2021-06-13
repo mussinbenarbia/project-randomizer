@@ -5,7 +5,7 @@
 </script>
 
     <div class="tech">
-        <img class="tech-img" src="./images/{techName}.svg" alt="tech">
+        <img class="tech-img" src="/images/{techName}.png" alt="tech">
         <h3>{capitalizeWord(techName)}</h3>
     </div>
 
